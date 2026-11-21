@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StickyTVL — durability-adjusted token launch radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <h1>StickyTVL <span class="glacier-mark">&#10052;</span></h1>
+      <p class="tagline">The token launch radar that prices patience. TVL that stays is worth more than TVL that flashes.</p>
+    </div>
+    <div class="masthead-meta" id="meta"></div>
+  </div>
+</header>
+
+<main>
+  <section class="controls" id="controls">
+    <div class="tabs" role="tablist">
+      <button id="tab-radar" class="tab active" type="button">Radar board</button>
+      <button id="tab-live" class="tab" type="button">Already trading</button>
+    </div>
+    <div class="filters">
+      <input id="search" type="search" placeholder="Search a protocol…" aria-label="Search protocols">
+      <select id="category" aria-label="Filter by category"><option value="">All categories</option></select>
+      <label class="watch-toggle"><input id="watchlist-only" type="checkbox"> Watchlist only</label>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <h2>How StickyTVL prices a launch</h2>
+    <p id="method-text"></p>
+    <div class="buckets" id="buckets"></div>
+    <p class="honest-note">The snapshot carries only one change window (<code>change_7d</code>). Durability is therefore a single-window stickiness proxy — the smaller a protocol&rsquo;s weekly TVL swing, the stickier its TVL is judged — not a cross-window consistency check. Protocols are said to <em>record no token</em>, never to <em>have</em> none: the snapshot&rsquo;s record is not proof.</p>
+  </section>
+
+  <section class="panel" id="board-panel">
+    <table id="board">
+      <thead>
+        <tr>
+          <th data-sort="rank">Rank</th>
+          <th data-sort="name">Protocol</th>
+          <th data-sort="category">Category</th>
+          <th data-sort="tvl_usd">TVL</th>
+          <th data-sort="change_7d">7d change</th>
+          <th data-sort="durability">Durability</th>
+          <th data-sort="implied_value_usd">Implied value</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="count" id="count"></p>
+  </section>
+
+  <section class="panel" id="detail-panel" hidden>
+    <button id="back" type="button">&larr; Back to the board</button>
+    <div id="detail"></div>
+  </section>
+
+  <section class="panel" id="live-panel" hidden>
+    <h2>Already trading — set aside, not ranked</h2>
+    <p class="live-note">These protocols already record a token, so StickyTVL does not rank them. They are shown because their market caps set the peer multiples the board is priced from.</p>
+    <table id="live-table">
+      <thead><tr><th>Protocol</th><th>Category</th><th>TVL</th><th>Market cap</th><th>FDV/TVL</th></tr></thead>
+      <tbody id="live-rows"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>
+  <p>StickyTVL &middot; built for make.fun&rsquo;s token-radar-01 bounty &middot; snapshot as of <span id="asof"></span> &middot; implied values are this entry&rsquo;s own claim, never make.fun&rsquo;s.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
